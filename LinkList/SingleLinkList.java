@@ -183,10 +183,10 @@ public class SingleLinkList {
     }
 
     public void showData(){
-        Node flag = head;
-        while (flag != null){
-            System.out.println(flag.data);
-            flag = flag.next;
+        Node temp = head;
+        while (temp != null){
+            System.out.println(temp.data);
+            temp = temp.next;
         }
         System.out.println("size:"+size);
     }

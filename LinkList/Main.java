@@ -36,7 +36,7 @@ public class Main {
         System.out.println(s2.insertNode(4,"is"));
         System.out.println(s2.insertNode(5,"good"));
         s2.showData();
-        System.out.println("==============删除指定位置的节点=============");
+        System.out.println("==============删除指定位置的节点元素=============");
         System.out.println(s2.deleteNode(1));
         System.out.println(s2.deleteNode(1));
         s2.showData();
