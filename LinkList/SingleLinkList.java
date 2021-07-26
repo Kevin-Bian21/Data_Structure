@@ -8,6 +8,7 @@ public class SingleLinkList {
 
     private Node head; //头节点
     private int size; //链表中元素个数
+    Node tail ; //声明尾节点，在尾插法建立链表的时候总是定位到最后一个节点，提高尾插法的效率
 
     public Node getHead() {
         return head;
@@ -47,16 +48,17 @@ public class SingleLinkList {
         Node newNode = new Node(data);
         if (head == null){
             head = newNode;
+            tail = head;
             size++;
             return;
         }
-        Node temp = head;
         //从头节点开始往下找，找到最后一个元素
-        while (temp.next != null){
-            temp = temp.next;
+        while (tail.next != null){
+            tail = tail.next;
         }
         //把新节点接在temp的后面
-        temp.next = newNode;
+        tail.next = newNode;
+        tail = tail.next;  //使尾节点总是指向链表的最后
         size++;
     }
 
