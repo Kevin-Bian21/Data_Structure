@@ -179,7 +179,32 @@ public class SingleLinkList {
         e = q.data;   //保存删除的节点数据域
         System.out.println("被删掉的数据为："+e);
         q = null;   //释放删除节点的空间
+        size--;
         return true;
+    }
+
+    //将链表转化为数组
+    public Object[] toArray(){
+        Object[] array = new Object[size];
+        Node current = head;
+        int i = 0;
+        while (current != null){
+            array[i] = current.data;
+            current = current.next;
+            i++;
+        }
+        return array;
+    }
+
+    //在链表中的很多方法中都需要获取前一个节点，所以我们将其提取出来，写一个新方法
+    public Node getPrevious(Node node){
+        Node current = head;
+        while (current != null){
+            if (current.next == node)
+                return current;
+            current = current.next;
+        }
+        return null;
     }
 
     public void showData(){
