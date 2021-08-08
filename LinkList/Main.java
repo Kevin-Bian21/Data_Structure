@@ -1,17 +1,25 @@
 package LinkList;
 
+import java.util.Arrays;
+
 /**
  * @author BianWenKai
  * @DATE 2021/7/18 - 22:13
  **/
 public class Main {
     public static void main(String[] args) {
-//        System.out.println("==============尾插法建立单链表s1===============");
-//        SingleLinkList s1 = new SingleLinkList();
-//        s1.addTail("边");
-//        s1.addTail("文");
-//        s1.addTail("凯");
-//        s1.showData();
+        System.out.println("==============尾插法建立单链表s1===============");
+        SingleLinkList s1 = new SingleLinkList();
+        s1.addTail("边");
+        s1.addTail("文");
+        s1.addTail("凯");
+        s1.addTail(9);
+        s1.showData();
+        s1.deleteNode(0);
+
+        Object[] array = s1.toArray();
+        System.out.println(Arrays.toString(array));
+
 //        System.out.println("单链表是否为空："+s1.isEmpty());
 //        System.out.println("==============头插法建立单链表s2===============");
 //        SingleLinkList s2 = new SingleLinkList();
@@ -41,20 +49,20 @@ public class Main {
 //        System.out.println(s2.deleteNode(1));
 //        s2.showData();
 
-        CircularLinkList s = new CircularLinkList();
-        s.addTail("边");
-        s.addTail("文");
-        s.addTail("凯");
-//        s.showData();
-
-        CircularLinkList s1 = new CircularLinkList();
-        s1.addTail("a");
-        s1.addTail("b");
-        s1.addTail("c");
-//        s.showData();
-
-        CircularLinkList s3 = new CircularLinkList();
-        s3.mergeLinkList(s1,s);
-        s3.showData();
+//        CircularLinkList s = new CircularLinkList();
+//        s.addTail("边");
+//        s.addTail("文");
+//        s.addTail("凯");
+////        s.showData();
+//
+//        CircularLinkList s1 = new CircularLinkList();
+//        s1.addTail("a");
+//        s1.addTail("b");
+//        s1.addTail("c");
+////        s.showData();
+//
+//        CircularLinkList s3 = new CircularLinkList();
+//        s3.mergeLinkList(s1,s);
+//        s3.showData();
     }
 }
