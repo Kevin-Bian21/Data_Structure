@@ -8,7 +8,7 @@ public class SingleLinkList {
 
     private Node head; //头节点
     private int size; //链表中元素个数
-    Node tail ; //声明尾节点，在尾插法建立链表的时候总是定位到最后一个节点，提高尾插法的效率
+    private Node tail ; //声明尾节点，在尾插法建立链表的时候总是定位到最后一个节点，提高尾插法的效率
 
     public Node getHead() {
         return head;
@@ -33,9 +33,11 @@ public class SingleLinkList {
         this.size = 0;
     }
 
-    public static class Node{
+    private class Node{
         private Node next; //指针，指向Node类型的指针
-        Object data;
+        private Object data;
+
+        //创建构造函数，保证我们创建的Node都是有值的，不会有无值Node实例被初始化出来
         public Node(Object data){
             this.next = null;
             this.data = data;
@@ -49,29 +51,25 @@ public class SingleLinkList {
         if (head == null){
             head = newNode;
             tail = head;
-            size++;
-            return;
+        }else{
+            //把新节点接在temp的后面
+            tail.next = newNode;
+            tail = tail.next;  //使尾节点总是指向链表的最后
         }
-        //从头节点开始往下找，找到最后一个元素
-        while (tail.next != null){
-            tail = tail.next;
-        }
-        //把新节点接在temp的后面
-        tail.next = newNode;
-        tail = tail.next;  //使尾节点总是指向链表的最后
         size++;
     }
 
     //头插法
     public void addHead(Object data){
         Node newNode = new Node(data);
-        if (head == null){
+        //优化一下，使用isEmpty()方法来判断链表是否为空
+        if (isEmpty()){
             head = newNode;
-            size++;
-            return;
+            tail = head;
+        }else {
+            newNode.next = head;
+            head = newNode;
         }
-        newNode.next = head;
-        head = newNode;
         size++;
     }
 
@@ -108,11 +106,11 @@ public class SingleLinkList {
         int i = 0;
         Node temp = head;
         while (temp != null){
-            i++;
             if (i == index){
                 return temp.data;
             }
             temp = temp.next;
+            i++;
         }
         return null;
     }
@@ -122,11 +120,11 @@ public class SingleLinkList {
         int i = 0;
         Node temp = head;
         while (temp != null){
-            i ++;
             if (temp.data.equals(data)){
                 return i;
             }
             temp = temp.next;
+            i ++;
         }
         return -1;
     }
@@ -156,12 +154,12 @@ public class SingleLinkList {
 
     //删除指定位置的元素
     public boolean deleteNode(int index){
-        int i = 1;
+        int i = 0;
         Node temp = head;
         Node q ;
         Object e = null;
         //要删除的是头节点的话
-        if (index == 1){
+        if (index == 0){
             temp = temp.next;
             System.out.println("被删掉的数据为："+head.data);
             head = temp;
@@ -174,7 +172,7 @@ public class SingleLinkList {
             i++;
         }
         //删除的位置不合理
-        if (temp == null || i > index-1)
+        if (temp == null || index > getSize())
             return false;
         q = temp.next;
         temp.next =temp.next.next;

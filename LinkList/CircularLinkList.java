@@ -9,7 +9,7 @@ public class CircularLinkList {
     private int size ;
     private Node head;
     private Node tail;
-    Node p;
+    private Node p;
 
     public CircularLinkList(){
         this.head = null;
@@ -17,9 +17,9 @@ public class CircularLinkList {
         this.size = 0;
     }
 
-    public class Node{
-        public Node next;
-        public Object data;
+    private class Node{
+        private Node next;
+        private Object data;
 
         public  Node(Object data){
             this.next = null;
