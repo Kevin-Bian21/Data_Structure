@@ -153,8 +153,30 @@ public class SingleLinkList {
     }
 
     //删除指定位置的元素
-    public boolean deleteNode(int index){
+    public void deleteNode(int index){
         int i = 0;
+        Node current = head;
+        if (isEmpty() || index > size){
+            System.out.println("删除位置不合理");
+        }else if (index == 0){       //删除的假如是头节点
+            System.out.println("被删掉的数据为："+current.data);
+            current = current.next;
+            head = current;
+            size--;
+        }else{
+            while (i < index){
+                current = current.next;
+                i++;
+            }
+            //[       1        ->        2       ->    3]
+            //getPrevious(current)    current
+            System.out.println("被删掉的数据为："+current.data);
+            getPrevious(current).next = current.next;     //调用获取当前节点的前一个节点方法
+            current.next = null;
+            size--;
+        }
+
+/*
         Node temp = head;
         Node q ;
         Object e = null;
@@ -181,7 +203,10 @@ public class SingleLinkList {
         q = null;   //释放删除节点的空间
         size--;
         return true;
+ */
     }
+
+
 
     //将链表转化为数组
     public Object[] toArray(){
