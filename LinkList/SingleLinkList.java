@@ -164,49 +164,18 @@ public class SingleLinkList {
             head = current;
             size--;
         }else{
-            while (i < index){
+            while (i < index - 1){     //获取要删除节点的前一个节点
                 current = current.next;
                 i++;
             }
-            //[       1        ->        2       ->    3]
-            //getPrevious(current)    current
+            //[       1        ->        2       ->    3]删除index为1的节点，即：2
+            //     current
             System.out.println("被删掉的数据为："+current.data);
-            getPrevious(current).next = current.next;     //调用获取当前节点的前一个节点方法
-            current.next = null;
+            current.next = current.next.next;
+            current.next = null;    //将被删除的节点释放
             size--;
         }
-
-/*
-        Node temp = head;
-        Node q ;
-        Object e = null;
-        //要删除的是头节点的话
-        if (index == 0){
-            temp = temp.next;
-            System.out.println("被删掉的数据为："+head.data);
-            head = temp;
-            size--;
-            return true;
-        }
-        //找到要删除节点的前一个节点
-        while (temp != null && i < index-1){
-            temp = temp.next;
-            i++;
-        }
-        //删除的位置不合理
-        if (temp == null || index > getSize())
-            return false;
-        q = temp.next;
-        temp.next =temp.next.next;
-        e = q.data;   //保存删除的节点数据域
-        System.out.println("被删掉的数据为："+e);
-        q = null;   //释放删除节点的空间
-        size--;
-        return true;
- */
     }
-
-
 
     //将链表转化为数组
     public Object[] toArray(){
@@ -219,6 +188,27 @@ public class SingleLinkList {
             i++;
         }
         return array;
+    }
+
+
+    //链表反转,需要创建三个指针
+    //[1 -> 2 -> 3]
+    //pre  cur  temp
+    // 1 <- 2 <- 3
+    public void reverse(){
+        if (isEmpty())
+            return ;
+        Node previous = head;
+        Node current = previous.next;
+        while ( current != null){
+            Node temp = current.next;
+            current.next = previous;
+            previous = current;
+            current = temp;
+        }
+        tail = head;    //重新设置头节点和尾节点
+        tail.next = null;   //将尾节点的next域置空，因为原有的指针会导致我们的链表构成循环
+        head = previous;
     }
 
     //在链表中的很多方法中都需要获取前一个节点，所以我们将其提取出来，写一个新方法
