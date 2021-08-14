@@ -10,26 +10,9 @@ public class SingleLinkList {
     private int size; //链表中元素个数
     private Node tail ; //声明尾节点，在尾插法建立链表的时候总是定位到最后一个节点，提高尾插法的效率
 
-    public Node getHead() {
-        return head;
-    }
-
-    public void setHead(Node head) {
-        this.head = head;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-
-
     public SingleLinkList(){
         this.head = null;
+        this.tail = null;
         this.size = 0;
     }
 
@@ -209,6 +192,31 @@ public class SingleLinkList {
         tail = head;    //重新设置头节点和尾节点
         tail.next = null;   //将尾节点的next域置空，因为原有的指针会导致我们的链表构成循环
         head = previous;
+    }
+
+    //通过传入的索引来返回链表相反的元素：例如index=0，则返回末尾结点，index=1,返回倒数第二个节点，
+    //链表长度未知，只能一次得出结果，不能多次扫描链表
+    public Object getNodeFromTheEnd(int index){
+        int i = 0;
+        Node pre ,cur ;
+        pre = cur  = head;
+        if (isEmpty()){
+            throw new IllegalStateException();
+        }else if (index < 0){
+            return null;
+        }else{
+            while (i <= index-1){
+                cur = cur.next;
+                if (cur == null )
+                    throw new IllegalArgumentException();
+                i++;
+            }
+            while (cur.next != null){
+                cur = cur.next;
+                pre = pre.next;
+            }
+        }
+        return pre.data;
     }
 
     //在链表中的很多方法中都需要获取前一个节点，所以我们将其提取出来，写一个新方法
