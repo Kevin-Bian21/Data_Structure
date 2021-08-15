@@ -9,7 +9,7 @@ public class CircularLinkList {
     private int size ;
     private Node head;
     private Node tail;
-    private Node p;
+
 
     public CircularLinkList(){
         this.head = null;
@@ -34,15 +34,14 @@ public class CircularLinkList {
             head = newNode;
             size++;
             tail = head;
-            p = tail;
-            p.next = head;
+            tail.next = head;
             return;
         }
         tail.next = newNode;
         tail = tail.next;
-        p = tail;
+        tail.next = head;  //尾节点的next域指向头节点
         size++;
-        p.next = head;  //尾节点的next域指向头节点
+
     }
 
     //将给定的两个不为空的循环链表进行合并

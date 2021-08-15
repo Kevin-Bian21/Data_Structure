@@ -28,7 +28,7 @@ public class DoubleLinkList {
         }
     }
 
-    public void buildLinkList(Object data) {
+    public void addTail(Object data) {
         Node newNode = new Node(data);
         Node current = tail;
         if (isEmpty()){
@@ -51,6 +51,7 @@ public class DoubleLinkList {
         else if (index < 0 || index > size-1)
             throw new IllegalArgumentException("参数异常");
         else if (index == 0){  //删除的是头节点
+            head.next.pre = null;
             head = head.next;
             size --;
         }else {
@@ -58,9 +59,39 @@ public class DoubleLinkList {
                 current = current.next;
                 i++;
             }
-            current.pre.next = current.next;    //将要删除节点的前一个节点的指针域指向要删除节点的下一个节点
+            //更改节点的指针域，释放删除的节点
+            current.pre.next = current.next;
+            current.next.pre = current.pre;
+            current = null;
             size--;
         }
+    }
+
+
+    //双向链表插入操作
+    public void insert(int index, Object data){
+        if (index < 0 || index >= size)
+            throw new IllegalArgumentException("Illegal Capacity");
+
+        int i =0;
+        Node current = head;
+        Node newNode  = new Node(data);
+        if (index == 0){
+            newNode.pre = null;
+            newNode.next = head;
+            head.pre = newNode;
+            head = newNode;
+        }else{
+            while (i < index) {
+                current = current.next;
+                i++;
+            }
+            newNode.pre = current.pre;
+            current.pre.next = newNode;
+            newNode.next = current;
+            current.pre = newNode;
+        }
+        size ++;
     }
 
     public boolean isEmpty(){

@@ -35,7 +35,7 @@ public class SingleLinkList {
             head = newNode;
             tail = head;
         }else{
-            //把新节点接在temp的后面
+            //把新节点接在tail的后面
             tail.next = newNode;
             tail = tail.next;  //使尾节点总是指向链表的最后
         }
@@ -139,7 +139,7 @@ public class SingleLinkList {
     public void deleteNode(int index){
         int i = 0;
         Node current = head;
-        if (isEmpty() || index > size){
+        if (index < 0 || index >= size){
             System.out.println("删除位置不合理");
         }else if (index == 0){       //删除的假如是头节点
             System.out.println("被删掉的数据为："+current.data);
@@ -153,9 +153,10 @@ public class SingleLinkList {
             }
             //[       1        ->        2       ->    3]删除index为1的节点，即：2
             //     current
-            System.out.println("被删掉的数据为："+current.data);
+            Node e = current.next;
             current.next = current.next.next;
-            current.next = null;    //将被删除的节点释放
+            System.out.println("被删掉的数据为："+e.data);
+            e = null;    //将被删除的节点释放
             size--;
         }
     }
