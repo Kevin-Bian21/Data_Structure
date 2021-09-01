@@ -1,5 +1,6 @@
 package Queue;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -85,5 +86,24 @@ public class LinkedBlockingDeque<E> implements Queue<E> {
         if (isEmpty())
             throw new NoSuchElementException();
         return first.data;
+    }
+
+
+    public E[] toArray(){
+        //将链表转化为数组
+        E[] array = (E[]) new Object[size];
+        Node<E> cur = first;
+        int i = 0;
+        while (cur != null){
+            array[i] = cur.data;
+            cur = cur.next;
+            i++;
+        }
+        return array;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(toArray());
     }
 }

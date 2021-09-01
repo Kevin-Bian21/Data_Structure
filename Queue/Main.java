@@ -16,9 +16,9 @@ public class Main {
         System.out.println(queue.isFull());
         System.out.println(queue.element());
         System.out.println(queue.remove());
-        System.out.println(queue.remove());
         System.out.println(queue.getCapacity());
         System.out.println(queue.getSize());
+        System.out.println(queue.toString());
 
 
     }
