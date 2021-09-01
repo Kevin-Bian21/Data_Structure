@@ -43,6 +43,9 @@ public class StackImpl<T> implements Stack<T> {
 
     @Override
     public void push(T data) {
+        //栈中的容量最大为1024
+        if (size > 1024)
+            throw new StackOverflowError("栈满");
         //如果栈满，则给其扩容
         if (elementData.length == size){
             T[] newArray = elementData;
