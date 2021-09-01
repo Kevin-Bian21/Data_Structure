@@ -8,8 +8,8 @@ import java.util.Arrays;
  * @DATE 2021/8/15 - 12:31
  **/
 public class Stack {
-    private Object[] elementData;
-    private int elementCount;
+    private Object[] elementData;  //存放栈中元素的数组
+    private int elementCount;  //栈顶指针
 
     public Stack(int initialCapacity){
         this.elementData = new Object[initialCapacity];
