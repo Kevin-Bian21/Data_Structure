@@ -2,6 +2,7 @@ package Stack.StackGenericity;
 
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * @author BianWenKai
@@ -57,20 +58,17 @@ public class StackImpl<T> implements Stack<T> {
 
     @Override
     public T peek() {
-        if (top == -1)
-            throw new IllegalStateException("栈空");
-        else
-            return elementData[top];
+        if (isEmpty())
+            throw new NoSuchElementException();
+        return elementData[top];
     }
 
     @Override
     public T pop() {
         if (isEmpty())
-            throw new IllegalStateException("栈空");
-        else {
-            size --;
-            return elementData[top--];
-        }
+            throw new NoSuchElementException();
+        size --;
+        return elementData[top--];
     }
 
     @Override
