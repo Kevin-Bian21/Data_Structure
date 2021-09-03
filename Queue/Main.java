@@ -20,7 +20,11 @@ public class Main {
         System.out.println(queue.getSize());
         System.out.println(queue.toString());
 
-
+        PriorityQueue priorityQueue = new PriorityQueue(4);
+        priorityQueue.add(1);
+        priorityQueue.add(5);
+        priorityQueue.add(3);
+        System.out.println(priorityQueue);
     }
 
 
