@@ -32,13 +32,13 @@ public class HashMap<K,V> implements Map<K,V>{
 
 
     //哈希函数
-    public int hashFunction(Object key){
+    public int hash(Object key){
         return Math.abs((Integer) key) % entries.length;
     }
 
     @Override
     public void put(K key, V value) {
-        int index = hashFunction(key);
+        int index = hash(key);
         if (entries[index] == null)
             entries[index] = new LinkedList<>();
 
@@ -55,28 +55,50 @@ public class HashMap<K,V> implements Map<K,V>{
 
     @Override
     public Object get(Object key) {
-        int index = hashFunction(key);
-        if (entries[index] == null)
-            throw new NullPointerException("key Error");
-        for (Entry entry : entries[index])
-            if (entry.key == key)
-                return entry.value;
+        int index = hash(key);
+        if (entries[index] != null) {
+            for (Entry entry : entries[index])
+                if (entry.key == key)
+                    return entry.value;
+        }
         return null;
     }
 
     @Override
     public void remove(Object key) {
-
+        int index = hash(key);
+        if (entries[index] != null) {
+            for (Entry entry : entries[index]){
+                if (entry.key == key){
+                    entries[index].remove(entry);
+                    return;
+                }
+            }
+        }else
+            throw new IllegalStateException("Not Found");
     }
 
     @Override
     public boolean containKey(Object key) {
+        int index = hash(key);
+        if (entries[index] != null){
+            for (Entry entry : entries[index]){
+                if (entry.key.equals(key))
+                    return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean containValue(Object value) {
+        for (LinkedList<Entry> list : entries)  {
+            if (list != null) {
+                for (Entry entry : list)
+                    if (entry.value.equals(value))
+                        return true;
+            }
+        }
         return false;
     }
-
 }

@@ -38,6 +38,14 @@ public class Main {
         map.put(1,"边");
         map.put(3,"文");
         map.put(6,"凯");
-        System.out.println(map.get(2));
+        map.put(9,null);
+        map.put(9,"A");
+        map.put(11,"B");
+        map.put(0,"C");
+        System.out.println(map.get(9));
+//        map.remove(2);
+        System.out.println(map.get(0));
+        System.out.println(map.containKey(11));
+        System.out.println(map.containValue(""));
     }
 }
