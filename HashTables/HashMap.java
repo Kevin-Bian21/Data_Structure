@@ -32,60 +32,48 @@ public class HashMap<K,V> implements Map<K,V>{
 
 
     //哈希函数
-    public int hash(Object key){
+    private int hash(Object key){
         return Math.abs((Integer) key) % entries.length;
     }
 
     @Override
     public void put(K key, V value) {
-        int index = hash(key);
-        if (entries[index] == null)
-            entries[index] = new LinkedList<>();
-
         //当有相同的key值进来的时候，只需要更新key对应的value即可，不需要将其往链表后边添加
-        for (Entry entry : entries[index]){
-            if (key == entry.key){
-                entry.value = value;
-                return ;
-            }
+        Entry entry = getEntry(key);
+        if (entry != null){
+            entry.value = value;
+            return;
         }
+        //如果传入的key值没有在桶中，则在对应索引处的桶中创建链表，否则获取key对应的桶
+        LinkedList<Entry> bucket = getOrCreateBucket(key);
         //将entry对象加入到索引为index处的数组单元保存的链表末尾。
-        entries[index].addLast(new Entry(key,value));
+        bucket.addLast(new Entry(key,value));
     }
 
     @Override
     public Object get(Object key) {
-        int index = hash(key);
-        if (entries[index] != null) {
-            for (Entry entry : entries[index])
-                if (entry.key == key)
-                    return entry.value;
-        }
-        return null;
+        Entry entry = getEntry(key);
+        return (entry == null) ? null : entry.value;
+//        if (entry != null)
+//            return entry.value;
+//        return null;
     }
 
     @Override
     public void remove(Object key) {
-        int index = hash(key);
-        if (entries[index] != null) {
-            for (Entry entry : entries[index]){
-                if (entry.key == key){
-                    entries[index].remove(entry);
-                    return;
-                }
-            }
-        }else
-            throw new IllegalStateException("Not Found");
+        Entry entry = getEntry(key);
+        if (entry != null)
+            getBucket(key).remove(entry);
+        throw new IllegalStateException();
     }
 
     @Override
     public boolean containKey(Object key) {
-        int index = hash(key);
-        if (entries[index] != null){
-            for (Entry entry : entries[index]){
+        LinkedList<Entry> bucket = getBucket(key);
+        if (bucket != null){
+            for (Entry entry : bucket)
                 if (entry.key.equals(key))
                     return true;
-            }
         }
         return false;
     }
@@ -101,4 +89,33 @@ public class HashMap<K,V> implements Map<K,V>{
         }
         return false;
     }
+
+    /*
+    优化代码
+    1. 因为方法中很多地方都有获取hash桶的代码，所以将其提取出来单独设置为一个方法
+    2. 将获取Entry实体的代码提取出来设置为一个方法
+    3.
+ */
+    private LinkedList<Entry> getBucket(Object key){
+        return entries[hash(key)];
+    }
+
+    private Entry getEntry(Object key){
+        LinkedList<Entry> bucket = getBucket(key);
+        if (bucket != null){
+            for (Entry entry : bucket){
+                if (entry.key.equals(key))
+                    return entry;
+            }
+        }
+        return null;
+    }
+
+    //如果hash表中的桶已经存了链表则拿到该链表对象，否则给hash表中的空桶桶创建链表
+    private LinkedList<Entry> getOrCreateBucket(Object key){
+        LinkedList<Entry> bucket = getBucket(key);
+        return (bucket == null) ? new LinkedList<>() : bucket;
+    }
+
+
 }
