@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.ArrayList;
+
 /**
  * @author BianWenKai
  * @DATE 2021/9/4 - 15:49
@@ -121,5 +123,68 @@ public class Tree {
         int left = min(root.leftChild);
         int right = min(root.rightChild);
         return Math.min(Math.min(left,right),root.value);
+    }
+
+    //判断两个tree是否相等
+    public boolean equals(Tree tree){
+        if (tree == null)
+            return false;
+        return equals(root,tree.root);
+    }
+
+    private boolean equals(Node rootOne,Node rootTwo){
+        if (rootOne == null && rootTwo == null)
+            return true;
+        if (rootOne != null && rootTwo != null)
+            return rootOne.value == rootTwo.value && equals(rootOne.leftChild,rootTwo.leftChild) && equals(rootOne.rightChild, rootTwo.rightChild);
+        return false;
+    }
+
+    //判断tree是否为二叉搜索树
+    public boolean isBinarySearchTree(){
+        return isBinarySearchTree(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+    }
+    private boolean isBinarySearchTree(Node root,int min,int max){
+        if (root == null)
+            return true;
+
+        if (root.value < min || root.value > max)
+            return false;
+
+        return isBinarySearchTree(root.leftChild, min , root.value - 1)
+                && isBinarySearchTree(root.rightChild, root.value + 1 , max);
+    }
+
+    //交换节点，测试isBinarySearchTree()方法
+    public void swapNode(){
+        Node temp = root.leftChild;
+        root.leftChild = root.rightChild;
+        root.rightChild = temp;
+    }
+
+    public ArrayList<Integer> getNodesAtDistance(int distance){
+        ArrayList<Integer> list = new ArrayList<>();
+        getNodesAtDistance(root, distance , list);
+        return list;
+    }
+    private void getNodesAtDistance(Node root, int distance, ArrayList<Integer> list){
+        if (root == null)
+            return;
+
+        if (distance == 1){
+            list.add(root.value);
+            return;
+        }
+
+        getNodesAtDistance(root.leftChild, distance - 1,list);
+        getNodesAtDistance(root.rightChild, distance - 1,list);
+    }
+
+    //二叉树层次遍历
+    public void traverseLevelOrder(){
+        for (int i = 1; i <= height() + 1; i++) {
+            for (int array : getNodesAtDistance(i))
+                System.out.println(array);
+        }
     }
 }
