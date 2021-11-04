@@ -4,9 +4,12 @@ package Heap;
  * @author BianWenKai
  * @DATE 2021/11/4 - 22:03
  **/
+
+//实现父节点的值总比其子结点的值大
 public class MaxHeap {
     public void maxHeap(int[] array) {
-        for (int i = 0; i < array.length; i++) {
+        int lastParentIndex = array.length / 2 - 1;
+        for (int i = lastParentIndex; i >= 0; i--) {
             priorityHeap(array, i);
         }
     }
