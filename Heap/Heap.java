@@ -28,14 +28,15 @@ public class Heap {
         bubbleUp(index, parentIndex);
     }
 
-    public void remove(){
+    public int remove(){
         if (isEmpty())
             throw new IllegalStateException("The heap is empty !");
         //为了将删除节点后的空位补上，首先需要将堆中最后一个元素移动到该位置，然后判断是否符合堆的结构，不符合则进行相应的调整
+        int root = Items[0];
         Items[0] = Items[--size];
         int index = 0;
         bubbleDown(index);
-
+        return root;
     }
 
     public void remove(int index){
