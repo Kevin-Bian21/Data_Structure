@@ -7,8 +7,8 @@ package Tries;
 public class Main {
     public static void main(String[] args) {
         Trie trie = new Trie();
-        trie.insert("tree");
-        trie.insert("trie");
+        trie.insertInMap("tree");
+        trie.insertInMap("trie");
         System.out.println();
     }
 }
