@@ -57,6 +57,18 @@ public class Trie {
         current.isEndOfWord = true;
     }
 
+    public boolean contain(String word) {
+        if (word == null)
+            throw new IllegalArgumentException("arg can't be null");
+        Node current = root;
+        for (char ch : word.toCharArray()) {
+            if (!current.hasChild(ch))
+                return false;
+            current = current.getChild(ch);
+        }
+        return current.isEndOfWord;
+    }
+
 
 //    public void insertInArray(String word) {
 //        Node current = root;
