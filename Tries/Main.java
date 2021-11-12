@@ -9,6 +9,17 @@ public class Main {
         Trie trie = new Trie();
         trie.insertInMap("tree");
         trie.insertInMap("trie");
+        trie.insertInMap("tries");
         System.out.println();
+
+//        trie.remove("tries");
+        trie.traversal();
+        System.out.println("============================");
+        System.out.println(trie.contain("tries"));
+        System.out.println("============================");
+
+
+        System.out.println(trie.findWords("hello"));
+
     }
 }
