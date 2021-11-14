@@ -16,6 +16,8 @@ public class Main {
         tree.insert(6);
         tree.insert(8);
         tree.insert(10);
+        tree.insert(0);
+        tree.preOrderTraversal();
 
         Tree tree2 = new Tree();
         tree2.insert(7);
@@ -32,7 +34,7 @@ public class Main {
 
         System.out.println("=====================");
         tree.postOrderTraversal();
-        System.out.println("=====================");
+        System.out.println("========树的高度=============");
         System.out.println(tree.height());
 
         System.out.println(tree.min());
@@ -47,7 +49,8 @@ public class Main {
         System.out.println("=========层次遍历二叉树===========");
         tree2.traverseLevelOrder();
 
-
+        System.out.println("=====================");
+//        System.out.println(tree.sort());
     }
 
     //求阶乘

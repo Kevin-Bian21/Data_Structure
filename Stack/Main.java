@@ -2,9 +2,6 @@ package Stack;
 
 import Stack.StackGenericity.StackImpl;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * @author BianWenKai
  * @DATE 2021/8/15 - 15:17
@@ -40,10 +37,8 @@ public class Main {
         System.out.println(stack1.getSize());
         System.out.println(stack1.toString());
 
-        StackImpl<Integer> stack2 = new StackImpl<Integer>(10);
+        StackImpl<Integer> stack2 = new StackImpl<Integer>(-1);
         System.out.println(stack2.isEmpty());
         System.out.println(stack2.toString());
-
-        List<Integer> list = new LinkedList<Integer>();
     }
 }

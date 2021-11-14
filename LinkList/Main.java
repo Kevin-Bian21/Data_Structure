@@ -1,6 +1,7 @@
 package LinkList;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * @author BianWenKai
@@ -8,6 +9,9 @@ import java.util.Arrays;
  **/
 public class Main {
     public static void main(String[] args) {
+
+
+
         System.out.println("==============尾插法建立单链表s1===============");
         SingleLinkList s1 = new SingleLinkList();
         s1.addTail("边");
@@ -15,11 +19,11 @@ public class Main {
         s1.addTail("凯");
         s1.addTail(9);
         s1.showData();
-        s1.deleteNode(0);
-
+        s1.deleteNode(2);
+//        s1.reverse();
         Object[] array = s1.toArray();
         System.out.println(Arrays.toString(array));
-
+//        System.out.println(s1.getNodeFromTheEnd(3));
 //        System.out.println("单链表是否为空："+s1.isEmpty());
 //        System.out.println("==============头插法建立单链表s2===============");
 //        SingleLinkList s2 = new SingleLinkList();
@@ -53,7 +57,7 @@ public class Main {
 //        s.addTail("边");
 //        s.addTail("文");
 //        s.addTail("凯");
-////        s.showData();
+//        s.showData();
 //
 //        CircularLinkList s1 = new CircularLinkList();
 //        s1.addTail("a");
@@ -64,5 +68,16 @@ public class Main {
 //        CircularLinkList s3 = new CircularLinkList();
 //        s3.mergeLinkList(s1,s);
 //        s3.showData();
+        DoubleLinkList dl = new DoubleLinkList();
+        dl.addTail(10);
+        dl.addTail(20);
+        dl.addTail(30);
+        dl.addTail(40);
+//        dl.deleteNode(2);
+        dl.insert(3,1);
+        dl.showData();
+
+
+        Stack<Integer> stack = new Stack<Integer>();
     }
 }
