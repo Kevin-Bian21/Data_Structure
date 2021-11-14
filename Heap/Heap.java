@@ -4,6 +4,8 @@ package Heap;
  * @author BianWenKai
  * @DATE 2021/11/2 - 17:01
  **/
+
+//堆的实现是一颗完全二叉树
 public class Heap {
 
     private int[] Items;
@@ -86,7 +88,7 @@ public class Heap {
 
     private void bubbleUp(int index, int parentIndex) {
         //子结点和父结点进行比较，如果大则将父节点和子结点进行交换
-        while (index > 0 && Items[index] > Items[parentIndex]) {
+        while (index < size && Items[index] > Items[parentIndex]) {
             swap(index, parentIndex);
             index = parentIndex;
             parentIndex = (index - 1) / 2;
