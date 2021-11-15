@@ -16,6 +16,7 @@ import java.util.*;
  *      print()
  *          A is connected with [B, C]
  *          B is connected with [A]
+ *      traversal()
  */
 public class Graph {
 
@@ -65,8 +66,53 @@ public class Graph {
         adjacencyNodes.get(nodeMap.get(from)).add(nodeMap.get(to));
     }
 
-    public void romeEdge(String from, String to) {
+    public void removeEdge(String from, String to) {
         adjacencyNodes.get(nodeMap.get(from)).remove(nodeMap.get(to));
+    }
+
+    //递归深度优先遍历图
+    public void traversalDepthFirstRec(String root) {
+        Node node = nodeMap.get(root);
+        if (node == null)
+            return;
+        traversalDepthFirstRec(node, new HashSet<>());
+
+    }
+
+    private void traversalDepthFirstRec(Node root, Set<Node> set) {
+        System.out.print(root.label + " ");
+        set.add(root);
+
+        for (Node node : adjacencyNodes.get(root)) {
+            if (!set.contains(node))
+                traversalDepthFirstRec(node, set);
+        }
+    }
+
+    public void traverseDepthFirstIte(String root) {
+        Node node = nodeMap.get(root);
+        if (node == null)
+            return;
+
+        Set<Node> set = new HashSet<>();
+        Stack<Node> stack = new Stack<>();
+        stack.push(node);
+
+        while (!stack.isEmpty()) {
+            Node current = stack.pop();
+
+            if (set.contains(current))
+                continue;
+
+            System.out.print(current + " ");
+            set.add(current);
+
+            for (Node neighbour : adjacencyNodes.get(current)) {
+                if (!set.contains(neighbour))
+                    stack.push(neighbour);
+            }
+        }
+
     }
 
     public void print() {
