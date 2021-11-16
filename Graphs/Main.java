@@ -13,8 +13,8 @@ public class Main {
         graph.addNode("D");
         graph.addEdge("A", "B");
         graph.addEdge("B", "C");
-        graph.addEdge("C", "A");
-        graph.addEdge("A", "D");
+        graph.addEdge("C", "D");
+        graph.addEdge("D", "B");
 
 //        graph.removeNode("B");
 //        graph.removeEdge("A","B");
@@ -41,5 +41,18 @@ public class Main {
 
         System.out.println("================");
         System.out.println(graph.hasCycle());
+
+        System.out.println("============================加权无向图=============================");
+        WeightedGraph wg = new WeightedGraph();
+        wg.addNode("A");
+        wg.addNode("B");
+        wg.addNode("C");
+        wg.addEdge("A", "B", 3);
+        wg.addEdge("A", "C", 8);
+        wg.addEdge("B", "C", 1);
+        wg.print();
+        System.out.println(wg.getShortestDistance("A", "C"));
+
+        System.out.println(wg.getShortestPath("A", "C"));
     }
 }
