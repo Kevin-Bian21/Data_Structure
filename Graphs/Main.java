@@ -11,12 +11,11 @@ public class Main {
         graph.addNode("B");
         graph.addNode("C");
         graph.addNode("D");
-        graph.addNode("E");
         graph.addEdge("A", "B");
-        graph.addEdge("A", "C");
-        graph.addEdge("C", "D");
-        graph.addEdge("B", "D");
-        graph.addEdge("D", "E");
+        graph.addEdge("B", "C");
+        graph.addEdge("C", "A");
+        graph.addEdge("A", "D");
+
 //        graph.removeNode("B");
 //        graph.removeEdge("A","B");
 
@@ -39,5 +38,8 @@ public class Main {
         System.out.println();
         System.out.println("================");
         System.out.println(graph.topologicalSort());
+
+        System.out.println("================");
+        System.out.println(graph.hasCycle());
     }
 }

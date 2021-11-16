@@ -180,6 +180,44 @@ public class Graph {
         stack.push(node);
     }
 
+    //判断图是否有环
+    public boolean hasCycle() {
+        Set<Node> all = new HashSet<>();
+        Set<Node> visiting = new HashSet<>();
+        Set<Node> visited = new HashSet<>();
+
+        all.addAll(nodeMap.values());
+
+        while (!all.isEmpty()) {
+            Node current = all.iterator().next();
+            if (hasCycle(current, all, visiting, visited))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean hasCycle(Node node, Set<Node> all, Set<Node> visiting, Set<Node> visited) {
+        all.remove(node);
+
+        visiting.add(node);
+
+        for (Node neighbour : adjacencyNodes.get(node)) {
+            if (visited.contains(neighbour))
+                continue;
+
+            if (visiting.contains(neighbour))
+                return true;
+
+            if (hasCycle(neighbour, all, visiting, visited))
+                return true;
+        }
+
+        visiting.remove(node);
+        visited.add(node);
+
+        return false;
+    }
+
 /*
     private void traversalBreadthFirst(Node node, Queue<Node> queue) {
         System.out.print(node + " ");
