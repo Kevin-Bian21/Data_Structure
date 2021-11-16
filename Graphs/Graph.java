@@ -17,6 +17,8 @@ import java.util.*;
  *          A is connected with [B, C]
  *          B is connected with [A]
  *      traversal()
+ *      topological()
+ *      hasCycle()
  */
 public class Graph {
 
