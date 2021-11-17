@@ -90,11 +90,16 @@ public class WeightedGraph {
         }
     }
 
+    /**
+     * Dijkstra's Algorithm
+     *
+     * @param from begin node
+     * @param to   end node
+     * @return the shortestDistance
+     */
     public int getShortestDistance(String from, String to) {
-
-        //不能在此在new该from节点对象，否则nodeMap中存放的fromNode对象和NodeEntry中的node对象虽然label一样，但却是两个不同的对象
-        //这就会导致使用该fromNode节点拿不到nodeMap中label对应节点的edges。所以node节点需要从nodeMap中获取
-//        Node fromNode = new Node(from);
+        if (nodeMap.isEmpty())
+            throw new IllegalStateException();
 
         //用来存放当前的节点到其余节点的距离
         Map<Node,Integer> distances = new HashMap<>();
@@ -183,5 +188,71 @@ public class WeightedGraph {
         return path;
     }
 
+    //判断图是否有环存在
+    public boolean hasCycle() {
+        //存放遍历过的节点
+        Set<Node> visited = new HashSet<>();
+        for (Node node : nodeMap.values()) {
+            if (!visited.contains(node))
+                if (hasCycle(node, null, visited))
+                    return true;
+        }
+        return false;
+    }
 
+    private boolean hasCycle(Node node, Node parent, Set<Node> visited) {
+
+        visited.add(node);
+
+        for (Edge edge : node.getEdges()) {
+            if (edge.to.equals(parent))
+                continue;
+            if (visited.contains(edge.to))
+                return true;
+            if (hasCycle(edge.to, node, visited))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Prim's Algorithm
+     * 从一个节点起将与它连接的边权值最小的邻接点加入进来
+     *
+     * 1. 使用优先队列
+     * 2. 重复上述做法直到该 tree 包含全部节点结束
+     */
+    public WeightedGraph getMinimumSpanningTree(){
+        WeightedGraph tree = new WeightedGraph();
+
+        if (nodeMap.isEmpty())
+            return tree;
+
+        PriorityQueue<Edge> edges = new PriorityQueue<>(Comparator.comparingInt(e -> e.weight));
+
+        Node startNode = nodeMap.values().iterator().next();
+
+        edges.addAll(startNode.getEdges());
+        tree.addNode(startNode.label);
+
+        if (edges.isEmpty())
+            return tree;
+        //将nodeMap中的节点全部加入到tree中
+        while (tree.nodeMap.size() < nodeMap.size()) {
+            //从PriorityQueue取出的edge对象一定是该队列中所有edge对象中weight最小的
+            Edge minEdge = edges.remove();
+            Node nextNode = minEdge.to;
+
+            if (tree.nodeMap.containsKey(nextNode.label))
+                continue;
+
+            tree.addNode(nextNode.label);
+            tree.addEdge(minEdge.from.label, minEdge.to.label, minEdge.weight);
+
+            for (Edge edge : nextNode.getEdges())
+                if (!tree.nodeMap.containsKey(edge.to.label))
+                    edges.add(edge);
+        }
+        return tree;
+    }
 }

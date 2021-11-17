@@ -54,5 +54,9 @@ public class Main {
         System.out.println(wg.getShortestDistance("A", "C"));
 
         System.out.println(wg.getShortestPath("A", "C"));
+
+        System.out.println(wg.hasCycle());
+
+        wg.getMinimumSpanningTree().print();
     }
 }
